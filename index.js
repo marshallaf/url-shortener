@@ -18,7 +18,42 @@ app.get('/', (req, res) => {
   res.send('there\'s nothing here yet');
 });
 
-app.get('/new/:newUrl', (req, res) => {
+app.get('/new/https://*', newUrl);
+app.get('/new/http://*', newUrl);
+
+app.get('/new/*', (req, res) => {
+  res.send({ error: 'urls must begin with http:// or https://' });
+});
+
+app.get('/:urlId', (req, res) => {
+  // retrieve the real url
+  MongoClient.connect(mongoUrl, (err, db) => {
+    if (err) {
+      console.log('database connection error');
+    } else {
+      // database connected
+      const collection = db.collection('urls');
+
+      collection.find({ _id: parseInt(req.params.urlId) }).toArray((err, docs) => {
+        if (err) console.log('error finding documents', err);
+        else {
+          if (docs.length == 0) {
+            res.send('no urls found');
+          } else {
+            res.redirect(docs[0].originalUrl);
+          }
+          db.close();
+        }
+      });
+    }
+  });
+}); 
+
+app.listen(app.get('port'), () => {
+  console.log('App is running on port ' + app.get('port') + '!');
+});
+
+function newUrl(req, res) {
   // insert url into the db
   MongoClient.connect(mongoUrl, (err, db) => {
     if (err) {
@@ -31,14 +66,15 @@ app.get('/new/:newUrl', (req, res) => {
         if (err)
           console.log(err);
         else {
-          console.log(count);
           const urlObj = {
+            _id: count,
             shortUrl: baseUrl + count,
-            originalUrl: req.params.newUrl,
+            originalUrl: req.originalUrl.slice(5),
           };
           collection.insert(urlObj, (err, insertRes) => {
             if (err) console.log('error writing to database', err);
             else {
+              console.log('inserted new with id: ' + urlObj._id);
               res.send({ shortUrl: urlObj.shortUrl, originalUrl: urlObj.originalUrl });
             }
             db.close();
@@ -47,23 +83,4 @@ app.get('/new/:newUrl', (req, res) => {
       });
     }
   });
-
-  // send the shortened url
-});
-
-app.get('/:urlId', (req, res) => {
-  // retrieve the real url
-  MongoClient.connect(mongoUrl, (err, db) => {
-    if (err) {
-      console.log('database connection error');
-    } else {
-      // database connected
-    }
-  });
-
-  // redirect the user
-}); 
-
-app.listen(app.get('port'), () => {
-  console.log('App is running on port ' + app.get('port') + '!');
-});
+}
