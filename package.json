@@ -1,0 +1,22 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marshallaf/url-shortener.git"
+  },
+  "author": "Andrew Marshall <marshall.a.f@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marshallaf/url-shortener/issues"
+  },
+  "homepage": "https://github.com/marshallaf/url-shortener#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
