@@ -1,0 +1,39 @@
+<html>
+<head>
+  <title>URL Shortener</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="root">
+    <div class="title">URL shortener API</div>
+    <div class="abstract">
+      <p>A microservice to return a shortened URL that redirects to the query URL.</p>
+      <p>
+        To use, direct your browser to <span class="inline-code">https://shorturl-marshallaf.herokuapp.com/new/</span>, followed by the query URL. The response will be a JSON object containing the original URL and the shortened version. Visit the shortened URL to be redirected to the original URL.
+      </p>
+    </div>
+    <div class="example-container">
+      <div class="title">example usage</div>
+      <div class="example-codebox">
+        <span class="comment">// create new URL</span><br />
+        <span class="url">https://shorturl-marshallaf.herokuapp.com/new/http://imgur.com/gallery/zWeJ5</span><br /><br />
+        <span class="comment">// response</span><br />
+        <span class="comment">// visiting shortUrl will redirect the browser to originalUrl</span><br />
+        {
+          <div class="code-indent">
+            <span class="bold">shortUrl: </span>
+            <span class="url">
+              <a href="https://shorturl-marshallaf.herokuapp.com/6">https://shorturl-marshallaf.herokuapp.com/6</a></span><span class="bold">,</span><br />
+            <span class="bold">originalUrl: </span>
+            <span class="url">
+              <a href="http://imgur.com/gallery/zWeJ5">http://imgur.com/gallery/zWeJ5</a>
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="attribution">
+    Created by Andrew Marshall with <a href="https://nodejs.org/">Node.js</a> and <a href="http://expressjs.com/">Express.js</a>. <a href="https://www.github.com/marshallaf/url-shortener">See it on Github!</a></div>
+  </div>
+</body>
+</html>

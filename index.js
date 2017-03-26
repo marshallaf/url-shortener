@@ -13,10 +13,7 @@ const app = express();
 // set port
 app.set('port', (process.env.PORT || 8080));
 
-app.get('/', (req, res) => {
-  // send the splash page
-  res.send('there\'s nothing here yet');
-});
+app.use(express.static(__dirname));
 
 app.get('/new/https://*', newUrl);
 app.get('/new/http://*', newUrl);
