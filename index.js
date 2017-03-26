@@ -2,11 +2,11 @@ const express = require('express');
 const mongodb = require('mongodb');
 
 // set base url
-const baseUrl = 'http://localhost:8080/';
+const baseUrl = 'https://shorturl-marshallaf.herokuapp.com/';
 
 // initialize mongo db
 const MongoClient = mongodb.MongoClient;
-const mongoUrl = 'mongodb://localhost:27017/url-shortener'
+const mongoUrl = process.env.MLAB_URI;
 
 const app = express();
 
